@@ -1,9 +1,14 @@
 package Reader;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.models.Student;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,12 +45,14 @@ public class Executor {
                         fileExecutor(finalLine,rows,nRows);
                     }));
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (IOException e) {
             System.out.println(e);
         }
+
 
     }
     public void fileExecutor(String line,List<String> rows,int nRows){
@@ -54,6 +61,13 @@ public class Executor {
             rows.add(line);
         }
         
+    }
+    public void processLines(String jsonArr){
+        Gson gson = new Gson();
+
+        Type studentListType = new TypeToken<ArrayList<Student>>(){}.getType();
+
+        ArrayList<Student> userArray = gson.fromJson(jsonArr, studentListType);
     }
 
 }
